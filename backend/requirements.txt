@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+websockets
+opencv-python
+pybind11
+python-dotenv
+httpx
+ollama

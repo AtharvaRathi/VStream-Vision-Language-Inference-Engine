@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  backend:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - VLM_PROVIDER=mock
+      - OLLAMA_HOST=http://host.docker.internal:11434
+      - OLLAMA_MODEL=moondream
+    # If running Ollama locally on a Mac, use host.docker.internal
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  frontend:
+    build:
+      context: ./frontend
+      # For standard Next.js dockerization
+      # Next.js standalone mode is recommended, but for simple dev we can run npm run dev or start
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
